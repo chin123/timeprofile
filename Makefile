@@ -273,7 +273,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		timeprofile.pro qcustomplot.h \
 		timeprofile.h \
-		creategraph.h main.cpp \
+		creategraph.h \
+		stsreader/sts.h main.cpp \
 		qcustomplot.cpp \
 		creategraph.cpp
 QMAKE_TARGET  = timeprofile
@@ -737,7 +738,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents qcustomplot.h timeprofile.h creategraph.h $(DISTDIR)/
+	$(COPY_FILE) --parents qcustomplot.h timeprofile.h creategraph.h stsreader/sts.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp qcustomplot.cpp creategraph.cpp $(DISTDIR)/
 
 
@@ -796,7 +797,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 main.o: main.cpp timeprofile.h \
 		qcustomplot.h \
-		creategraph.h
+		creategraph.h \
+		stsreader/sts.cpp \
+		stsreader/sts.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h

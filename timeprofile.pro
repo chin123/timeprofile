@@ -20,11 +20,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 HEADERS += qcustomplot.h \
            timeprofile.h \
-	   creategraph.h
+	   creategraph.h \
+	   stsreader/sts.h
 
 SOURCES += main.cpp \
            qcustomplot.cpp \
 	   creategraph.cpp
+	   stsreader/sts.cpp
 
 QT += widgets
 QT += printsupport

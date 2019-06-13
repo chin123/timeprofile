@@ -8,6 +8,7 @@
 #include "timeprofile.h"
 #include "qcustomplot.h"
 #include "creategraph.h"
+#include "stsreader/sts.cpp"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
@@ -20,6 +21,7 @@ int main(int argc, char *argv[]) {
   customPlot->setBackground(QBrush(gradient));
    
   auto methodTimes = getTimes(std::stoi(argv[1]));
+  auto idtomethod = idMap(argv[2]);
   
   QVector<double> ticks;
   QVector<QString> labels;
@@ -44,7 +46,7 @@ int main(int argc, char *argv[]) {
   // prepare y axis:
   //customPlot->yAxis->setRange(0, 400);
   customPlot->yAxis->setPadding(5); // a bit more space to the left border
-  customPlot->yAxis->setLabel("Power Consumption in\nKilowatts per Capita (2007)");
+  customPlot->yAxis->setLabel("Time taken in microseconds");
   customPlot->yAxis->setBasePen(QPen(Qt::white));
   customPlot->yAxis->setTickPen(QPen(Qt::white));
   customPlot->yAxis->setSubTickPen(QPen(Qt::white));
@@ -72,7 +74,7 @@ int main(int argc, char *argv[]) {
       mtimes << time;
     }
     mdata->setData(ticks, mtimes);
-    mdata->setName(std::to_string(kv.first).c_str());
+    mdata->setName(idtomethod[kv.first].c_str());
     count+=10;
   }
 
