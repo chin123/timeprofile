@@ -39,7 +39,8 @@ int main(int argc, char *argv[]) {
 	}
 
 	// remove last method which doesn't end executing
-	methods.pop_back();
+	if (!methods.empty())
+		methods.pop_back();
 
 	for (method m: methods) {
 		std::cout << m.id << ' ' << m.starttime << ' ' << m.endtime << std::endl;
