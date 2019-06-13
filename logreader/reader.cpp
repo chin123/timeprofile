@@ -44,25 +44,5 @@ int main(int argc, char *argv[]) {
 	for (method m: methods) {
 		std::cout << m.id << ' ' << m.starttime << ' ' << m.endtime << std::endl;
 	}
-
-	/*
-	int start = methods[0].starttime;
-	int end = methods.back().endtime;
-	int totaltime = end - start;
-	graph.resize(totaltime/binsize + 1);
-	for (method m: methods) {
-		for (int i = m.starttime; i <= m.endtime; i += binsize) {
-			graph[(i-start)/binsize].push_back(m);
-		}
-	}
-	std::cout << start << std::endl;
-	for (auto v: graph) {
-		std::cout << v.size() << ' ';
-		for (auto m: v) {
-			std::cout << m.id << ' ';
-		}
-		std::cout << std::endl;
-	}
-	*/
 	return 0;
 }
