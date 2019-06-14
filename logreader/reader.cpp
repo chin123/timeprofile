@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <ios>
+#include <cstdio>
 
 struct method {
 	int id;
@@ -16,39 +17,35 @@ int main(int argc, char *argv[]) {
 
 	std::cerr << "program start" << std::endl;
 	std::vector<method> methods;
-	std::string line;
+	char *line = new char[1000];
+	size_t bufsize = 1000;
 
 	// ignore the first line
-	std::getline(std::cin, line);
 
-	for (; std::getline(std::cin, line);) {
-		std::stringstream ss(line);
+	method m;
+	while (getline(&line, &bufsize, stdin) != -1) {
+		/*std::stringstream ss(line);
+
 		int eventID;
-		ss >> eventID;
+		ss >> eventID;*/
+		int eventID, temp, chareID, time;
+		sscanf(line, "%d %d %d %d", &eventID, &temp, &chareID, &time);
 		if (eventID == 2 || eventID == 3) {
-			int temp, chareID, time;
+			/*int temp, chareID, time;
 			ss >> temp;
 			ss >> chareID;
-			ss >> time;
+			ss >> time;*/
 			if (eventID == 2) {
-				method m;
 				m.id = chareID;
 				m.starttime = time;
-				methods.push_back(m);
 			} else {
-				methods[methods.size() - 1].endtime = time;
+				m.endtime = time;
+				std::cout << m.id << ' ' << m.starttime << ' ' << m.endtime << std::endl;
 			}
 
 		}
 	}
 
-	// remove last method which doesn't end executing
-	if (!methods.empty())
-		methods.pop_back();
-
-	for (method m: methods) {
-		std::cout << m.id << ' ' << m.starttime << ' ' << m.endtime << std::endl;
-	}
 	std::cerr << "program end" << std::endl;
 	return 0;
 }
