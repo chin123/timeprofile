@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <cstdio>
 
 #include "creategraph.h"
 
@@ -11,8 +12,8 @@ std::unordered_map<int, std::vector<int>> getTimes(int binsize) {
 	int globalendtime = -1;
 	method m;
 	std::vector<method> methods;
-	while (std::cin >> m.id) {
-		std::cin >> m.starttime >> m.endtime;
+	while (scanf("%d", &m.id) != EOF) {
+		scanf("%d %d", &m.starttime, &m.endtime);
 		if (globalstarttime == -1 || m.starttime < globalstarttime) {
 			globalstarttime = m.starttime;
 		}
@@ -21,13 +22,15 @@ std::unordered_map<int, std::vector<int>> getTimes(int binsize) {
 		}
 		methods.push_back(m);
 	}
+	std::cout << "finished first loop" << std::endl;
 	std::unordered_map<int, std::vector<int> > methodTimes;
 	for (method m: methods) {
 		methodTimes[m.id].resize((globalendtime - globalstarttime)/binsize, 0);
 	}
+	std::cout << "finished second loop" << std::endl;
 	for (int i = 0; i < methods.size(); i++) {
 		method m = methods[i];
-		for (int j = globalstarttime; j <= globalendtime; j += binsize) {
+		for (int j = m.starttime; j <= m.endtime; j += binsize) {
 			int timeinbucket;
 			if (j > m.endtime || j + binsize < m.starttime) {
 				timeinbucket = 0;
@@ -43,6 +46,7 @@ std::unordered_map<int, std::vector<int>> getTimes(int binsize) {
 			methodTimes[m.id][(j - globalstarttime)/binsize] += timeinbucket;
 		}
 	}
+	std::cout << "finished third loop" << std::endl;
 	int noBins = (globalendtime - globalstarttime)/binsize; 
 	/*for (auto kv: methodTimes) {
 		int mid = kv.first;

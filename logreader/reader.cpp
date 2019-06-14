@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <ios>
 
 struct method {
 	int id;
@@ -10,7 +11,10 @@ struct method {
 };
 
 int main(int argc, char *argv[]) {
-	std::vector< std::vector<method> > graph;
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+
+	std::cerr << "program start" << std::endl;
 	std::vector<method> methods;
 	std::string line;
 
@@ -45,5 +49,6 @@ int main(int argc, char *argv[]) {
 	for (method m: methods) {
 		std::cout << m.id << ' ' << m.starttime << ' ' << m.endtime << std::endl;
 	}
+	std::cerr << "program end" << std::endl;
 	return 0;
 }
